@@ -1,0 +1,200 @@
+:root {
+    --primary: #57449a;
+    --primary-light: #7b66c4;
+    --secondary: #d9d7ef;
+    --dark: #1f252f;
+    --light: #f0f2f5; /* Fundo mais claro para contraste */
+    --white: #ffffff;
+    --gradient: linear-gradient(135deg, #57449a 0%, #3a2a70 100%);
+    --card-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    --hover-shadow: 0 15px 30px rgba(87, 68, 154, 0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Montserrat', sans-serif; background-color: var(--light); color: var(--dark); overflow-x: hidden; }
+ul { list-style: none; }
+a { text-decoration: none; }
+
+/* UTILS */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.section-padding { padding: 80px 0; }
+.section-title { font-size: 2.5rem; text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
+
+/* NAVBAR */
+.navbar { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 1000; padding: 15px 0; backdrop-filter: blur(10px); }
+.nav-content { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); letter-spacing: -1px; }
+.logo span { color: var(--dark); }
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { color: var(--dark); font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+.nav-links a:hover { color: var(--primary); }
+.btn-login { background: var(--gradient); color: white; border: none; padding: 8px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(87, 68, 154, 0.3); }
+.btn-login:hover { transform: translateY(-2px); }
+.menu-toggle { display: none; font-size: 1.5rem; color: var(--primary); }
+
+/* HERO */
+.hero { height: 80vh; background: url('image/hero_bg.jpg') center/cover no-repeat fixed; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(31, 37, 47, 0.6), rgba(87, 68, 154, 0.8)); }
+.hero-content { position: relative; z-index: 2; max-width: 800px; padding: 20px; }
+.hero-content h4 { letter-spacing: 3px; font-weight: 600; margin-bottom: 10px; color: var(--secondary); text-transform: uppercase; }
+.hero-content h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.btn-hero { background: var(--white); color: var(--primary); padding: 15px 40px; border-radius: 50px; font-weight: 800; text-transform: uppercase; transition: 0.3s; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.btn-hero:hover { background: var(--secondary); transform: translateY(-3px); }
+
+/* CARROSSEL TIME */
+.team-section-bg { background-color: var(--white); position: relative; overflow: hidden; }
+.team-carousel-container { position: relative; margin: 0 auto; z-index: 1; padding: 20px 0; }
+.team-track { display: flex; overflow-x: auto; gap: 20px; padding: 20px 10px; scroll-behavior: smooth; scrollbar-width: none; }
+.team-track::-webkit-scrollbar { display: none; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+.prev-btn { left: -10px; } .next-btn { right: -10px; }
+
+/* GLASS CARDS (TIME) */
+.glass-card-wrapper { flex: 0 0 240px; height: 350px; perspective: 1000px; cursor: pointer; }
+.glass-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+.glass-card-wrapper.flipped .glass-card-inner { transform: rotateY(180deg); }
+.glass-front, .glass-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 15px; overflow: hidden; background: var(--white); border: 1px solid #eee; box-shadow: var(--card-shadow); }
+.glass-img-box { width: 100%; height: 75%; overflow: hidden; }
+.glass-img-box img { width: 100%; height: 100%; object-fit: cover; }
+.glass-info { height: 25%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: white; }
+.glass-info h3 { font-size: 1.2rem; color: var(--primary); margin: 0; }
+.glass-back { transform: rotateY(180deg); background: var(--gradient); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+
+/* === ESCALAS (NOVO LAYOUT LINHA A LINHA) === */
+.section-dark { 
+    background: var(--light); /* Fundo claro agora */
+    padding: 60px 0; 
+    position: relative; 
+}
+
+/* Container de cada Dia (Linha) */
+.escala-day-row {
+    margin-bottom: 50px;
+    background: transparent;
+}
+
+.day-badge-large {
+    display: inline-block;
+    background: var(--gradient);
+    color: white;
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(87, 68, 154, 0.3);
+    font-size: 1.1rem;
+}
+
+/* Grid para os Cards (Lado a Lado) */
+.cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* O Card Individual Bonito */
+.escala-card-premium {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+/* Animação ao passar o mouse */
+.escala-card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+
+.card-header {
+    background: white;
+    padding: 20px;
+    border-bottom: 2px solid var(--light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    background: var(--secondary);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.card-header h3 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.3rem;
+}
+
+.card-body {
+    padding: 25px;
+    font-family: 'Open Sans', sans-serif;
+    color: #555;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* Estilo para lista de nomes/músicas */
+.card-body span {
+    display: block;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 5px;
+}
+.card-body span:last-child { border: none; }
+
+/* Decoração de Notas Musicais no Fundo */
+.escala-card-premium::after {
+    content: '♪';
+    position: absolute;
+    bottom: -20px;
+    right: 10px;
+    font-size: 120px;
+    color: rgba(87, 68, 154, 0.03);
+    pointer-events: none;
+    transform: rotate(-15deg);
+}
+
+/* OUTRAS SEÇÕES */
+.section-lider { background: var(--white); padding: 80px 0; }
+.lider-wrapper { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+.lider-img-box { position: relative; width: 150px; height: 150px; }
+.img-lider { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 5px solid var(--secondary); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+.lider-msg-box { max-width: 700px; text-align: center; }
+.lider-msg-box blockquote { font-size: 1.2rem; font-style: italic; color: #555; }
+
+.search-box input { width: 100%; padding: 15px 50px; border-radius: 50px; border: 1px solid #ddd; outline: none; transition: 0.3s; }
+.search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--secondary); }
+.musicas-list-container { max-height: 300px; overflow-y: auto; background: white; border-radius: 15px; box-shadow: var(--card-shadow); padding: 20px; margin-top: 20px; }
+.musica-row { padding: 12px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; }
+
+.agenda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.agenda-card { background: white; padding: 30px; border-radius: 20px; box-shadow: var(--card-shadow); border-left: 5px solid var(--primary); }
+.tabela-agenda th { color: var(--primary); padding: 10px; text-align: left; }
+.tabela-agenda td { padding: 10px; border-bottom: 1px solid #eee; }
+
+footer { background: var(--dark); color: white; padding: 40px 0; text-align: center; margin-top: 50px; }
+
+/* MODAL ADMIN */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31, 37, 47, 0.9); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+.modal-content { background: white; width: 95%; max-width: 600px; padding: 30px; border-radius: 20px; max-height: 90vh; overflow-y: auto; }
+.btn-primary { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.2s; }
+.btn-primary:hover { background: var(--primary-light); transform: scale(1.02); }
+
+/* Separar botões no admin */
+.admin-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+@media (max-width: 768px) {
+    .cards-grid { grid-template-columns: 1fr; } /* Mobile vira coluna única */
+    .agenda-grid { grid-template-columns: 1fr; }
+    .hero-content h1 { font-size: 2.5rem; }
+    .nav-links { display: none; } .menu-toggle { display: block; }
+}

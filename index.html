@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo de Louvor -Ministério Jesus Cristo é a Verdade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">Grupo de Louvor <span>MJCV</span></div>
+            <ul class="nav-links">
+                <li><a href="#time">Time</a></li>
+                <li><a href="#escalas">Escalas</a></li>
+                <li><a href="#lider">Líder</a></li>
+                <li><a href="#musicas">Louvores</a></li>
+                <li><a href="#agenda">Agenda</a></li>
+                <li><button class="btn-login" onclick="abrirAdmin()"><i class="fas fa-lock"></i> Área Líder</button></li>
+            </ul>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h4>GRUPO DE LOUVOR</h4>
+            <h1>MINISTÉRIO JESUS CRISTO É A VERDADE</h1>
+            <p>"Adoradores em espírito e em verdade"</p>
+            <a href="#escalas" class="btn-hero">Ver Escalas</a>
+        </div>
+    </header>
+
+    <section id="time" class="section-padding team-section-bg">
+        <div class="container">
+            <h2 class="section-title">Nosso Time</h2>
+            <div class="team-carousel-container">
+                <button class="carousel-btn prev-btn" onclick="scrollCarrossel('left')"><i class="fas fa-chevron-left"></i></button>
+                <div class="team-track" id="team-track"><div class="loader"></div></div>
+                <button class="carousel-btn next-btn" onclick="scrollCarrossel('right')"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVA SEÇÃO DE ESCALAS (O JS VAI PREENCHER O LAYOUT DE 3 LINHAS AQUI) -->
+    <section id="escalas" class="section-dark">
+        <div class="container">
+            <h2 class="section-title">Escalas da Semana</h2>
+            <!-- Este container ID é essencial para o script.js funcionar -->
+            <div id="escalas-container-dinamico">
+                <p style="text-align:center;">Carregando escalas...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lider" class="section-lider">
+        <div class="container lider-wrapper">
+            <div class="lider-img-box">
+                <img src="image/lider.jpg" onerror="this.src='https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80'" alt="Pr Adriano" class="img-lider">
+            </div>
+            <div class="lider-msg-box">
+                <h3>Palavra do Líder</h3>
+                <blockquote id="msg-reflexao">...</blockquote>
+                <p id="msg-versiculo" style="font-weight:bold; color:var(--primary); margin-top:10px;">...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="musicas" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title">Banco de Louvores</h2>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Pesquisar..." onkeyup="filtrarMusicas()">
+            </div>
+            <div class="musicas-list-container">
+                <ul id="lista-musicas-publica"></ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="agenda" class="section-padding">
+        <div class="container">
+            <div class="agenda-grid">
+                <!-- Quadro de Avisos -->
+                <div class="agenda-card">
+                    <h3><i class="fas fa-bullhorn"></i> Quadro de Avisos</h3>
+                    <ul id="lista-avisos" class="agenda-lista"></ul>
+                </div>
+                <!-- Quadro de Agenda -->
+                <div class="agenda-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Agenda & Ensaios</h3>
+                    <table class="tabela-agenda">
+                        <thead><tr><th>Data</th><th>Evento</th><th>Obs</th></tr></thead>
+                        <tbody id="tabela-agenda-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h4>Igreja Jesus Cristo é a Verdade</h4>
+            <p style="opacity:0.7;">Cultos: Quarta 20:00h |  Sexta 20:00h | Domingo 08:30h e 18h</p>
+        </div>
+    </footer>
+
+    <!-- MODAL ADMIN -->
+    <div id="modal-admin" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="fecharAdmin()">&times;</span>
+            
+            <!-- Tela Login -->
+            <div id="tela-login">
+                <h2>Acesso Restrito</h2>
+                <div class="input-group"><input type="password" id="senha-admin" placeholder="Senha"></div>
+                <button class="btn-primary" onclick="verificarSenha()">Entrar</button>
+            </div>
+            
+            <!-- Tela Painel -->
+            <div id="painel-admin" style="display: none;">
+                <div class="painel-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2 style="margin:0;">Gestão</h2>
+                    <button class="btn-primary" style="width:auto; padding:5px 15px; margin:0; background:#333;" onclick="logout()">Sair</button>
+                </div>
+                
+                <div class="abas-admin" style="display:flex; gap:10px; margin-bottom:20px;">
+                    <button class="tab-btn active" onclick="mudarAba('tab-escalas')" style="flex:1; padding:10px;">Escalas</button>
+                    <button class="tab-btn" onclick="mudarAba('tab-musicas')" style="flex:1; padding:10px;">Músicas</button>
+                    <button class="tab-btn" onclick="mudarAba('tab-lider')" style="flex:1; padding:10px;">Líder/Agenda</button>
+                </div>
+
+                <!-- ABA ESCALAS -->
+                <div id="tab-escalas" class="tab-content active">
+                    <div class="admin-actions">
+                        <button class="btn-primary" style="background:#27ae60;" onclick="gerarEscalaCantores()">🎲 Gerar Cantores</button>
+                        <button class="btn-primary" style="background:#2980b9;" onclick="gerarRepertorioSemanal()">🎵 Gerar Músicas</button>
+                    </div>
+                    <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
+                    <h4>Editar Manualmente</h4>
+                    <div id="editor-escala-container"></div>
+                    <button class="btn-primary" onclick="salvarEdicaoManual()">Salvar Alterações</button>
+                </div>
+
+                <!-- ABA MÚSICAS -->
+                <div id="tab-musicas" class="tab-content">
+                    <textarea id="mass-import-area" rows="4" style="width:100%; border:1px solid #ddd; padding:10px;" placeholder="Cole lista: Musica - Cantor"></textarea>
+                    <button class="btn-primary" onclick="importarMusicasEmMassa()">Importar Lista</button>
+                    <hr style="margin:20px 0;">
+                    <input type="text" id="admin-search-music" placeholder="Buscar para excluir..." onkeyup="renderizarListaAdmin()" style="width:100%; padding:10px; margin-bottom:10px;">
+                    <div id="lista-admin-musicas" style="max-height:200px; overflow-y:auto; border:1px solid #eee;"></div>
+                </div>
+
+                <!-- ABA LÍDER / AGENDA (CORRIGIDA) -->
+                <div id="tab-lider" class="tab-content">
+                    <h4>Palavra do Líder</h4>
+                    <textarea id="edit-reflexao" rows="3" style="width:100%; padding:5px;"></textarea>
+                    <input type="text" id="edit-versiculo" style="width:100%; margin-top:5px; padding:5px;" placeholder="Versículo ou Frase curta">
+                    
+                    <hr style="margin:20px 0; border:0; border-top:2px dashed #eee;">
+                    
+                    <!-- ÁREA 1: AGENDA DE EVENTOS -->
+                    <h4 style="color:var(--primary); margin-bottom:10px;">📅 Adicionar na Agenda</h4>
+                    <div style="background:#f9f9f9; padding:15px; border-radius:10px; margin-bottom:20px; border:1px solid #eee;">
+                        <div class="input-group">
+                            <input type="text" id="agenda-data" placeholder="Data (Ex: 15/10)">
+                            <input type="text" id="agenda-evento" placeholder="Evento (Ex: Vigília)">
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="agenda-obs" placeholder="Obs (Ex: Uniforme Preto)">
+                        </div>
+                        <button class="btn-primary" style="background:var(--primary); margin-top:10px;" onclick="addEventoAgenda()">+ Adicionar Evento</button>
+                    </div>
+
+                    <!-- ÁREA 2: AVISOS GERAIS -->
+                    <h4 style="color:#e67e22; margin-bottom:10px;">📢 Adicionar Aviso Geral</h4>
+                    <div style="background:#fff8e1; padding:15px; border-radius:10px; border:1px solid #ffe0b2;">
+                        <div class="input-group">
+                            <input type="text" id="new-aviso" placeholder="Ex: Ensaio cancelado...">
+                        </div>
+                        <button class="btn-primary" style="background:#e67e22; margin-top:10px;" onclick="addAviso()">+ Adicionar Aviso</button>
+                    </div>
+                    
+                    <button class="btn-primary" style="margin-top:30px; background:#333;" onclick="salvarLider()">Salvar Tudo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
